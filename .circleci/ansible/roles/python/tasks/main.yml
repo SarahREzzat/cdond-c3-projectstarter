@@ -1,0 +1,18 @@
+- name: "python play." 
+  hosts: web
+  user: ubuntu
+  become: true
+  become_method: sudo
+  become_user: root  
+  gather_facts: false
+
+
+  tasks:
+    - name: "Install dependancies"
+      command: apt install software-properties-common 
+    - name: "Add the key"
+      command: add-apt-repository ppa:deadsnakes/ppa 
+    - name: "Update to get python repo"
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+    - name: "Install python"
+      command: apt install python3.9 
