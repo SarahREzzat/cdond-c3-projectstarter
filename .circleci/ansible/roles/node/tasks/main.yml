@@ -1,5 +1,5 @@
 ---
-- name: "node play." 
+- name: node play 
   hosts: web
   user: ubuntu
   become: true

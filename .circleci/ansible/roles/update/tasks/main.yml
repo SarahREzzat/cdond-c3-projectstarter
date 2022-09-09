@@ -1,5 +1,5 @@
 ---
-- name: "update play." 
+- name: update play 
   hosts: web
   user: ubuntu
   become: true

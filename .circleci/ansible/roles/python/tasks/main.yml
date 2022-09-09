@@ -1,5 +1,5 @@
 ---
-- name: "python play." 
+- name: python play 
   hosts: web
   user: ubuntu
   become: true
