@@ -175,7 +175,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            yum update -y
+            yum install update 
             yum install epel-release -y
             yum install ansible -y
       - run:
