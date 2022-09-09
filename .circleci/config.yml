@@ -176,6 +176,7 @@ jobs:
           name: Install dependencies
           command: |
             amazon-linux-extras install -y ansible2
+            ansible --version
       - run:
           name: Configure server
           command: |
