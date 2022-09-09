@@ -1,3 +1,4 @@
+---
 - name: "node play." 
   hosts: web
   user: ubuntu

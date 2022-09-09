@@ -1,3 +1,4 @@
+---
 - name: "python play." 
   hosts: web
   user: ubuntu
