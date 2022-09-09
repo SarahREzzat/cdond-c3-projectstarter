@@ -7,5 +7,5 @@
   gather_facts: false
 
   tasks:
-    - name: "Update to get python repo"
-      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+  - name: "Update to get python repo"
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
