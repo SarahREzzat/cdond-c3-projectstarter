@@ -157,7 +157,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-            - project/.circleci/ansible/inventory.txt
+            - .circleci/ansible/inventory.txt
       # Here's where you will add some code to rollback on failure      
 
   configure-infrastructure:
@@ -169,10 +169,9 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "b1:f1:3c:67:c3:c8:00:d7:be:0d:e0:b5:cf:02:65:dc"
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - project/.circleci/ansible/inventory.txt
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: .circleci/ansible/inventory.txt
       - run:
           name: Install dependencies
           command: |
