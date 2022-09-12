@@ -171,7 +171,7 @@ jobs:
             - "b1:f1:3c:67:c3:c8:00:d7:be:0d:e0:b5:cf:02:65:dc"
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: .circleci/ansible/inventory.txt
+          at: ~/
       - run:
           name: Install dependencies
           command: |
