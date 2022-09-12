@@ -1,14 +1,14 @@
-# ---
-# - name: node play 
-#   hosts: web
-#   user: ubuntu
-#   become: true
+---
+- name: node play 
+  hosts: web
+  user: ubuntu
+  become: true
 
-#   tasks:
-#   - name: "Add the key"
-#     command: curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
-#   - name: "Add the repo"
-#     command: apt-get install -y nodejs npm
-#   - name: "Install pm2"
-#     command: npm i -g pm2 
+  tasks:
+    - name: "Add the key"
+      command: curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
+    - name: "Add the repo"
+      command: apt-get install -y nodejs npm
+    - name: "Install pm2"
+      command: npm i -g pm2 
     

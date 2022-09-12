@@ -1,11 +1,11 @@
 ---
-name: update play 
-  # hosts: web
-  # user: ubuntu
-  # become: true
-  # become_method: sudo
-  # become_user: root  
+- name: update play 
+  hosts: web
+  user: ubuntu
+  become: true
+  become_method: sudo
+  become_user: root  
 
-  # tasks:
-  # - name: "Update to get python repo"
-  #   apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+  tasks:
+    - name: "Update to get python repo"
+      apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
