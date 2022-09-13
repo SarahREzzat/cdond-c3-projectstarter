@@ -152,8 +152,8 @@ jobs:
             cat .circleci/ansible/inventory.txt
             echo "[web]" > .circleci/ansible/inventory.txt
             aws ec2 describe-instances        \
-            --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters 'Name=tag:Name,Values=backend-*'  \
+            --query 'Reservations[*].Instances[*].PublicIpAddress,Status:State.Name' \
+            --filters 'Name=tag:Name,Values=backend-*' 'Name=instance-state-name,Values=running'  \
             --output text >> .circleci/ansible/inventory.txt
       - persist_to_workspace:
           root: ~/
