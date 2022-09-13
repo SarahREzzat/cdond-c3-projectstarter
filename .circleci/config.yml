@@ -226,8 +226,15 @@ jobs:
             # install ansible
             amazon-linux-extras install -y ansible2
             # install python
+            yum -y install openssl-devel bzip2-devel libffi-devel
             yum -y install gcc-c++ make
-            yum install -y python39 python39-pip 
+            yum -y install wget
+            wget https://www.python.org/ftp/python/3.9.10/Python-3.9.10.tgz -y
+            tar xvf Python-3.9.10.tgz
+            cd Python-*/
+            ./configure --enable-optimizations
+            make altinstall
+            yum -y groupinstall "Development Tools"
             # install nodejs
             yum -y install curl
             curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
