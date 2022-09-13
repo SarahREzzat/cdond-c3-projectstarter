@@ -3,7 +3,7 @@
   become: true
   command: apt install curl -y
 - name: "Add the key"
-  command: curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
+  shell: curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
   args:
     warn: false
 - name: "Add the repo"
