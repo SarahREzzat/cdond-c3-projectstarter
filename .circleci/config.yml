@@ -240,7 +240,9 @@ jobs:
       - run:  curl -sL https://rpm.nodesource.com/setup_13.x | bash -
       - run: 
           name: "Install nodejs"
-          command:  yum install -y nodejs
+          command:  |
+            yum install -y nodejs
+            npm install -S webpack
       - run:
           name: Get backend url
           command: |
