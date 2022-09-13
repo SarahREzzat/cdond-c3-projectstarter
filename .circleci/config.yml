@@ -237,7 +237,7 @@ jobs:
             yum -y groupinstall "Development Tools"
             # install nodejs
             yum -y install curl
-      - run:  curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
+      - run:  curl -sL https://rpm.nodesource.com/setup_13.x | bash -
       - run: 
           name: "Install nodejs"
           command:  yum install -y nodejs
