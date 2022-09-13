@@ -7,7 +7,8 @@
   args:
     warn: false
 - name: "Add the repo"
-  shell: apt-get install -y nodejs npm
+  become: true
+  command: apt-get install -y nodejs npm
 - name: "Install pm2"
   command: npm i -g pm2 
   
