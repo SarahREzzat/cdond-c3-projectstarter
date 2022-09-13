@@ -227,14 +227,7 @@ jobs:
             amazon-linux-extras install -y ansible2
             # install python
             yum -y install gcc-c++ make
-            cd /opt 
-            yum install wget -y
-            wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz
-            tar xzf Python-3.9.6.tgz 
-            cd Python-3.9.6
-            ./configure --enable-optimizations 
-            make altinstall
-            rm -f /opt/Python-3.9.6.tgz 
+            yum install -y python39 python39-pip 
             # install nodejs
             yum -y install curl
             curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
