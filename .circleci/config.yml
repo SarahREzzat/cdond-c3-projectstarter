@@ -177,7 +177,6 @@ jobs:
           name: Install dependencies
           command: |
             amazon-linux-extras install -y ansible2
-            ansible --version
       - run:
           name: Configure server
           command: |
@@ -210,28 +209,44 @@ jobs:
             fi
   #    # Here's where you will add some code to rollback on failure      
 
-  # deploy-frontend:
-  #   docker:
-  #     # Docker image here that supports AWS CLI
-  #     - image: circleci/node:13.8.0
-  #   steps:
-  #     # Checkout code from git
-  #     - checkout
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           cd frontend
-  #           npm install
-  #     - run:
-  #         name: Get backend url
-  #         command: |
-  #           # your code here
-  #           export API_URL="http://${BACKEND_IP}:3030"
-  #           echo "${API_URL}"
-  #     - run:
-  #         name: Deploy frontend objects
-  #         command: |
-  #           npm run build
+  deploy-frontend:
+    docker:
+      # Docker image here that supports AWS CLI
+      - image: amazon/aws-cli
+    steps:
+      # Checkout code from git
+      - checkout
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: ~/
+      - run:
+          name: Install dependencies
+          command: |
+            # install ansible
+            amazon-linux-extras install -y ansible2
+            # install python
+            cd /opt 
+            yum install wget --y
+            wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz
+            tar xzf Python-3.9.6.tgz 
+            cd Python-3.9.6
+            ./configure --enable-optimizations 
+            make altinstall
+            rm -f /opt/Python-3.9.6.tgz 
+            # install nodejs
+            yum -y install curl
+            curl -sL https://rpm.nodesource.com/setup_13.x | sudo bash -
+            yum install -y nodejs
+      - run:
+          name: Get backend url
+          command: |
+            # your code here
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
+      - run:
+          name: Deploy frontend objects
+          command: |
+            npm run build
   #     Here's where you will add some code to rollback on failure      
                     
   # deploy-backend:
@@ -336,8 +351,8 @@ workflows:
           requires: [deploy-infrastructure]
       - run-migrations:
           requires: [configure-infrastructure]
-      # - deploy-frontend:
-      #     requires: [run-migrations]
+      - deploy-frontend:
+          requires: [run-migrations]
       # - deploy-backend:
       #     requires: [run-migrations]
       # - smoke-test:
