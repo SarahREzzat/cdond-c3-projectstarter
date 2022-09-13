@@ -1,6 +1,7 @@
 ---
 - name: "Add the key"
   command: curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
+    warn: false
 - name: "Add the repo"
   command: apt-get install -y nodejs npm
 - name: "Install pm2"
