@@ -226,6 +226,7 @@ jobs:
             # install ansible
             amazon-linux-extras install -y ansible2
             # install python
+            yum -y install gcc-c++ make
             cd /opt 
             yum install wget -y
             wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz
