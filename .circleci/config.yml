@@ -227,7 +227,7 @@ jobs:
             amazon-linux-extras install -y ansible2
             # install python
             cd /opt 
-            yum install wget --y
+            yum install wget -y
             wget https://www.python.org/ftp/python/3.9.6/Python-3.9.6.tgz
             tar xzf Python-3.9.6.tgz 
             cd Python-3.9.6
