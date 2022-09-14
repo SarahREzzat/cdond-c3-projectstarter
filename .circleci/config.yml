@@ -242,7 +242,8 @@ jobs:
           name: "Install nodejs"
           command:  |
             yum install -y nodejs
-            npm install -S webpack
+            npm install -g webpack webpack-cli'
+            npm link webpack
       - run:
           name: Get backend url
           command: |
