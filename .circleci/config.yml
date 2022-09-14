@@ -249,8 +249,8 @@ jobs:
           command: |
             export BACKEND_IP=$(aws ec2 describe-instances        \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
-            --filters 'Name=tag:Name,Values=backend-*' 'Name=instance-state-name,Values=running') \ 
-            --output text
+            --filters 'Name=tag:Name,Values=backend-*' 'Name=instance-state-name,Values=running' \ 
+            --output text)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
