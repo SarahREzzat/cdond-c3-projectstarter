@@ -261,6 +261,8 @@ jobs:
             cd frontend
             npm install
             npm run build
+            tar -czvf artifact-frontend.tar.gz dist
+            aws s3 cp dist s3://udapeople-udapeople-frontend --recursive 
   #     Here's where you will add some code to rollback on failure      
                     
   # deploy-backend:
