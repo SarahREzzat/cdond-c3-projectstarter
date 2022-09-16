@@ -1,36 +1,41 @@
 version: 2.1
 
-# commands:
-#   destroy-environment:
-#     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-#     parameters:
-#       # Add parameter here   
-#     steps:
-#       - run:
-#           name: Destroy environments
-#           when: on_fail
-#           command: |
-#             # Your code here
-#             exit 1
+commands:
+  destroy-environment:
+    description: Destroy back-end and front-end cloudformation stacks
+    parameters:
+      when_to_run:
+        type: string
+        default: "on_fail"  
+    steps:
+      - run:
+          name: Destroy environments
+          when: << parameters.when_to_run >>
+          command: |
+            aws delete-stack --stack-name udapeople-frontend
+            aws delete-stack --stack-name udapeople-backend
 
-#   revert-migrations:
-#     description: Revert the last migration if successfully run in the current workflow.
-#     parameters:
-#       # Add parameter here     
-#     steps:
-#       - run:
-#           name: Revert migrations
-#           # Add when this will run
-#           command: |
-#             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-#             SUCCESS = 1
-#             if(( $SUCCESS==1 )); 
-#             then
-#             #  cd ~/project/backend
-#             #  npm install
-#             #  Add revert code here. You can find this in the Getting Started section.
-#               exit 1
-#             fi
+
+  revert-migrations:
+    description: Revert the last migration if successfully run in the current workflow.
+    parameters:
+      when_to_run:
+        type: string
+        default: "on_fail"     
+    steps:
+      - run:
+          name: Revert migrations
+          # Add when this will run
+          command: |
+            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+            SUCCESS = 1
+            if(( $SUCCESS==1 )); 
+            then
+            #  cd ~/project/backend
+            #  npm install
+            #  Add revert code here. You can find this in the Getting Started section.
+              exit 1
+            fi
             
 jobs:
   build-frontend:
@@ -264,12 +269,9 @@ jobs:
             tar -czvf artifact-frontend.tar.gz dist
             aws s3 cp dist s3://udapeople-udapeople-frontend --recursive 
   #     Here's where you will add some code to rollback on failure      
-      - run:
-          name: Rollback
-          command: |
-            npm revert migrstions 
-            aws cloudformation delete-stack --stack-name udapeople-frontend
-          when: on_fail 
+      - destroy-environment:
+          when_to_run: on_fail
+      - 
 
                     
   deploy-backend:
