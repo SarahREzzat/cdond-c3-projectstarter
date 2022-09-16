@@ -265,26 +265,26 @@ jobs:
             aws s3 cp dist s3://udapeople-udapeople-frontend --recursive 
   #     Here's where you will add some code to rollback on failure      
                     
-  # deploy-backend:
-  #   docker:
-  #     - image: ansible/ansible:ubuntu1404
-  #   steps:
-  #     # Checkout code from git
-  #     # Add ssh keys with fingerprint
-  #     # attach workspace
-  #     - checkout 
-  #     - add_ssh_keys:
-  #         fingerprints:
-  #           - "17:f5:6e:f2:3d:b0:b2:ca:0b:a2:ed:aa:31:e9:30:a2"
-  #     - run:
-  #         name: Install dependencies
-  #         command: |
-  #           cd backend
-  #           npm install
-  #     - run:
-  #         name: Deploy backend
-  #         command: |
-  #           npm run build
+  deploy-backend:
+    docker:
+      - image: ansible/ansible:ubuntu1404
+    steps:
+      # Checkout code from git
+      # Add ssh keys with fingerprint
+      # attach workspace
+      - checkout 
+      - add_ssh_keys:
+          fingerprints:
+            - "17:f5:6e:f2:3d:b0:b2:ca:0b:a2:ed:aa:31:e9:30:a2"
+      - run:
+          name: Install dependencies
+          command: |
+            cd backend
+            npm install
+      - run:
+          name: Deploy backend
+          command: |
+            npm run build
       # Here's where you will add some code to rollback on failure  
 
 #   smoke-test:
