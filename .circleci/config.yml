@@ -278,6 +278,7 @@ jobs:
       - image: amazon/aws-cli
     steps:
       - checkout 
+      - run: yum install -y tar gzip
       - add_ssh_keys:
           fingerprints:
             - "17:f5:6e:f2:3d:b0:b2:ca:0b:a2:ed:aa:31:e9:30:a2"
