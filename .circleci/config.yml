@@ -264,6 +264,13 @@ jobs:
             tar -czvf artifact-frontend.tar.gz dist
             aws s3 cp dist s3://udapeople-udapeople-frontend --recursive 
   #     Here's where you will add some code to rollback on failure      
+      - run:
+          name: Rollback
+          command: |
+            npm revert migrstions 
+            aws cloudformation delete-stack --stack-name udapeople-frontend
+          when: on_fail 
+
                     
   deploy-backend:
     docker:
