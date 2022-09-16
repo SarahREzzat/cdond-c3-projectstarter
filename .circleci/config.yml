@@ -5,8 +5,8 @@ commands:
     description: Destroy back-end and front-end cloudformation stacks
     parameters:
       when_to_run:
-        type: string
-        default: "on_fail"  
+          type: string
+          default: "on_fail"  
     steps:
       - run:
           name: Destroy environments
@@ -20,8 +20,8 @@ commands:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
       when_to_run:
-        type: string
-        default: "on_fail"     
+          type: string
+          default: "on_fail"     
     steps:
       - run:
           name: Revert migrations
