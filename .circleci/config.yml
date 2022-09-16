@@ -15,7 +15,6 @@ commands:
             aws delete-stack --stack-name udapeople-frontend
             aws delete-stack --stack-name udapeople-backend
 
-
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
     parameters:
@@ -25,16 +24,14 @@ commands:
     steps:
       - run:
           name: Revert migrations
-          # Add when this will run
+          when: << parameters.when_to_run >>
           command: |
-            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-            SUCCESS = 1
+            SUCCESS = $(curl https://kvdb.io/5hLmPDbqt5FqFEguCc3iJZ/migration_${CIRCLE_WORKFLOW_ID:0:7}) 
             if(( $SUCCESS==1 )); 
             then
-            #  cd ~/project/backend
-            #  npm install
-            #  Add revert code here. You can find this in the Getting Started section.
-              exit 1
+              cd ~/project/backend
+              npm install
+              npm run migrations:revert
             fi
             
 jobs:
@@ -208,7 +205,7 @@ jobs:
       - run:
           name: Send migration results to memstash
           command: |
-            if grep -q "has been executed successfully." > ~/project/backend/migrations_dump.txt
+            if grep "successfully." > ~/project/backend/migrations_dump.txt
             then
               curl https://kvdb.io/5hLmPDbqt5FqFEguCc3iJZ/migration_${CIRCLE_WORKFLOW_ID:0:7} -d '1'
             fi
@@ -255,7 +252,7 @@ jobs:
             export BACKEND_IP=$(aws ec2 describe-instances        \
             --query 'Reservations[*].Instances[*].PublicIpAddress' \
             --output text \
-            --filters 'Name=tag:Name,Values=backend-*' 'Name=instance-state-name,Values=running' )
+            --filters 'Name=tag:Name,Values=backend-*' 'Name=instance-state-name,Values=running')
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" >> frontend/.env
@@ -270,6 +267,8 @@ jobs:
             aws s3 cp dist s3://udapeople-udapeople-frontend --recursive 
   #     Here's where you will add some code to rollback on failure      
       - destroy-environment:
+          when_to_run: on_fail
+      - revert-migrations:
           when_to_run: on_fail
 
 
