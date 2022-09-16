@@ -1,0 +1,13 @@
+---
+- name: "Install unzip" 
+  become: true
+  command: apt-get install unzip
+- name: "Extract the zip"
+  command: unzip artifact.tar.gz
+- name: "Install npm"
+  command: npm install
+- name: "Stop the default pm2"
+  command: pm2 stop default
+- name: "Start npm pm2"
+  command: pm2 start npm -- start
+
