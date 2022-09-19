@@ -267,7 +267,7 @@ jobs:
   #     Here's where you will add some code to rollback on failure    
       - persist_to_workspace:
           root: ~/
-          paths:  
+          paths: ~/
       - destroy-environment:
           when_to_run: on_fail
       - revert-migrations:
