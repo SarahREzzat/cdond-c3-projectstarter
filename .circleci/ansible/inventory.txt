@@ -1,2 +1,2 @@
-ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 [web]
+host_key_checking = false
