@@ -12,6 +12,6 @@
     - ansible_host_key_checking: false
     - ansible_stdout_callback: yaml
   environment:
-    - ANSIBLE_HOST_KEY_CHECKING: false
+    - ANSIBLE_HOST_KEY_CHECKING: False
   roles:
     - deploy
