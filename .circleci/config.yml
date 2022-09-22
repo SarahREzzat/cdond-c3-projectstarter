@@ -324,27 +324,62 @@ jobs:
   smoke-test:
     docker:
       # Lightweight Docker image
-      - image: alpine:latest
+      - image: amazon/aws-cli
     steps:
       # Checkout code from git
       - checkout 
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: ~/
       - run: yum install -y tar gzip
       - run:
           name: Install dependencies
           command: |
-            # your code here
+            #  install ansible
+            amazon-linux-extras install -y ansible2
+            # install python
+            yum -y install openssl-devel bzip2-devel libffi-devel
+            yum -y install gcc-c++ make
+            yum -y install wget
+            wget https://www.python.org/ftp/python/3.9.10/Python-3.9.10.tgz 
+            tar xvf Python-3.9.10.tgz
+            cd Python-*/
+            ./configure --enable-optimizations
+            make altinstall
+            yum -y groupinstall "Development Tools"
+            # install nodejs
+            yum -y install curl
+      - run:  curl -sL https://rpm.nodesource.com/setup_13.x | bash -
       - run:
           name: Get backend url
           command: |
-            # your code here
+            export BACKEND_IP=$(aws ec2 describe-instances        \
+            --query 'Reservations[*].Instances[*].PublicIpAddress' \
+            --output text \
+            --filters 'Name=tag:Name,Values=backend-*' 'Name=instance-state-name,Values=running')
       - run:
           name: Backend smoke test.
           command: |
-            # your code here
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
+            if curl "${API_URL}/api/status" | grep "ok"
+            then
+                return 0
+            else
+                return 1
+            fi
       - run:
           name: Frontend smoke test.
           command: |
-            # your code here
+            URL="http://udapeople-udapeople-frontend.s3-website-us-east-1.amazonaws.com/#/employees"            
+            echo ${URL} 
+            if curl -s ${URL} | grep "Welcome"
+            then
+                # Change this to 0 after the job fails
+              return 1
+            else
+              return 1
+            fi
 #       # Here's where you will add some code to rollback on failure  
 
 #   cloudfront-update:
