@@ -314,6 +314,7 @@ jobs:
             npm run build
             cd ..
             tar -C backend -czvf artifact.tar.gz .
+            pwd
             echo "[defaults]" >> /etc/ansible/ansible.cfg
             echo "host_key_checking = False" >> /etc/ansible/ansible.cfg
             cd .circleci/ansible
