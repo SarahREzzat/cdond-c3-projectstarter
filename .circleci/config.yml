@@ -335,7 +335,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            #  install ansible
+            # install ansible
             amazon-linux-extras install -y ansible2
             # install python
             yum -y install openssl-devel bzip2-devel libffi-devel
@@ -380,6 +380,8 @@ jobs:
             else
               return 1
             fi
+      - revert-migrations:
+          when_to_run: on_fail
 #       # Here's where you will add some code to rollback on failure  
 
 #   cloudfront-update:
