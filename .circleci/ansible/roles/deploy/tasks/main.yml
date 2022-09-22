@@ -1,7 +1,7 @@
 ---
 - name: "Copy files to the host"
   copy: 
-    src: artifact.tar.gz
+    src: /root/project/artifact.tar.gz
     dest: /home/ubuntu
 - name: "Untar the source"
   command: tar -xvzf community_images.tar.gz -C backend
