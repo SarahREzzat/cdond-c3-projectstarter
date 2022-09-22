@@ -1,9 +1,10 @@
 ---
-- name: "Install unzip" 
-  become: true
-  command: apt-get install unzip
-- name: "Extract the zip"
-  command: unzip artifact.tar.gz
+- name: "Copy files to the host"
+  copy: 
+    src: artifact.tar.gz
+    dest: ~ 
+- name: "Untar the source"
+  command: tar -xvzf community_images.tar.gz -C backend
 - name: "Install npm"
   command: npm install
 - name: "Stop the default pm2"
