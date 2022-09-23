@@ -12,6 +12,7 @@ commands:
           name: Destroy environments
           when: << parameters.when_to_run >>
           command: |
+            aws s3 rm s3://udapeople-udapeople-frontend --recursive
             aws cloudformation delete-stack --stack-name udapeople-frontend
             aws cloudformation delete-stack --stack-name udapeople-backend
 
@@ -26,7 +27,7 @@ commands:
           name: Revert migrations
           when: << parameters.when_to_run >>
           command: |
-            export SUCCESS = $(curl https://kvdb.io/5hLmPDbqt5FqFEguCc3iJZ/migration_${CIRCLE_WORKFLOW_ID:0:7}) 
+            export SUCCESS=$(curl https://kvdb.io/5hLmPDbqt5FqFEguCc3iJZ/migration_${CIRCLE_WORKFLOW_ID:0:7}) 
             if(( $SUCCESS == 1 )); 
             then
               cd ~/project/backend
