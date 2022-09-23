@@ -26,8 +26,8 @@ commands:
           name: Revert migrations
           when: << parameters.when_to_run >>
           command: |
-            SUCCESS = $(curl https://kvdb.io/5hLmPDbqt5FqFEguCc3iJZ/migration_${CIRCLE_WORKFLOW_ID:0:7}) 
-            if(( $SUCCESS==1 )); 
+            export SUCCESS = $(curl https://kvdb.io/5hLmPDbqt5FqFEguCc3iJZ/migration_${CIRCLE_WORKFLOW_ID:0:7}) 
+            if(( $SUCCESS == 1 )); 
             then
               cd ~/project/backend
               npm install
