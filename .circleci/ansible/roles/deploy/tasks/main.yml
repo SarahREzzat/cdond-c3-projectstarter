@@ -13,8 +13,8 @@
   command: chdir=/home/ubuntu/backend ls
 - name: "Install npm"
   command: npm install
-- name: "Stop the default pm2"
-  command: pm2 stop all
+- name: "kill any pm2"
+  command: pm2 stop all || true
 - name: "Start npm pm2"
   command: pm2 start npm -- start
 
