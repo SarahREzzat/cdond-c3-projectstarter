@@ -14,7 +14,7 @@
 - name: "Install npm"
   command: npm install
 - name: "Stop the default pm2"
-  command: pm2 stop default
+  command: pm2 stop all
 - name: "Start npm pm2"
   command: pm2 start npm -- start
 
