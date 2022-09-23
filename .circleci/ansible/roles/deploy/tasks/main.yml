@@ -14,7 +14,7 @@
 - name: "Install npm"
   command: npm install
 - name: "kill any pm2"
-  command: pm2 stop all || true
+  command: pm2 kill 
 - name: "Start npm pm2"
   command: pm2 start npm -- start
 
