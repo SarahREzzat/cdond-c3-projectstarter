@@ -4,7 +4,7 @@
     src: /root/project/artifact.tar.gz
     dest: /home/ubuntu
 - name: "Untar the source"
-  command: tar -xvzf community_images.tar.gz -C backend
+  command: tar -xvzf /home/ubuntu/artifact.tar.gz -C backend
 - name: "Install npm"
   command: npm install
 - name: "Stop the default pm2"
