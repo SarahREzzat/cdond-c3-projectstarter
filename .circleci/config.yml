@@ -255,7 +255,6 @@ jobs:
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             echo API_URL="http://${BACKEND_IP}:3030" > frontend/.env
-            cat frontend/.env
       - run:
           name: Deploy frontend objects
           command: |
@@ -265,6 +264,10 @@ jobs:
             tar -czvf artifact-frontend.tar.gz dist
             aws s3 cp dist s3://udapeople-udapeople-frontend --recursive 
   #     Here's where you will add some code to rollback on failure    
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - project/.circleci/frontend/.env
       - destroy-environment:
           when_to_run: on_fail
       - revert-migrations:
@@ -354,7 +357,8 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            echo "${BACKEND_IP}"
+            BACKEND_URL=$(cat frontend/.env)
+            BACKEND_IP="${BACKEND_URL:18:-5}"
       - run:
           name: Backend smoke test.
           command: |
