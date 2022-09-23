@@ -4,7 +4,9 @@
     src: /root/project/artifact.tar.gz
     dest: /home/ubuntu
 - name: "Untar the source"
-  command: tar -xvzf /home/ubuntu/artifact.tar.gz -C backend
+  command: tar -xvf /home/ubuntu/artifact.tar.gz -C /home/ubuntu/backend
+- nanme: "Go to the right directory"
+  command: chdir=/home/ubuntu/backend
 - name: "Install npm"
   command: npm install
 - name: "Stop the default pm2"
