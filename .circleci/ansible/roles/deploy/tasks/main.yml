@@ -7,7 +7,7 @@
   command: mkdir /home/ubuntu/backend
 - name: "Untar the source"
   command: tar -xvf /home/ubuntu/artifact.tar.gz -C /home/ubuntu/backend
-- nanme: "Go to the right directory"
+- name: "Go to the right directory"
   command: chdir=/home/ubuntu/backend
 - name: "Install npm"
   command: npm install
