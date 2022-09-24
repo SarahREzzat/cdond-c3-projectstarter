@@ -15,6 +15,8 @@
   command: npm install
 - name: "kill any pm2"
   command: pm2 kill 
+- name: "echo the working directory"
+  command: pwd
 - name: "Start npm pm2"
   command: pm2 start npm -- start
 
