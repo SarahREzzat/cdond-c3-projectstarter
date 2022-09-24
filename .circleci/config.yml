@@ -361,11 +361,12 @@ jobs:
             BACKEND_URL=$(cat frontend/.env)
             echo $BACKEND_URL
             export BACKEND_IP="${BACKEND_URL:15:-5}"
-            echo 'export BACKEND_IP="$BACKEND_IP"' >> "$BASH_ENV"
+            echo "export BACKEND_IP='$BACKEND_IP'" >> "$BASH_ENV"
             echo $BACKEND_IP
       - run:
           name: Backend smoke test.
           command: |
+            echo $BACKEND_IP
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
             if curl "${API_URL}/api/status" | grep "ok"
