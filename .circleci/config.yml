@@ -360,7 +360,7 @@ jobs:
           command: |
             BACKEND_URL=$(cat frontend/.env)
             echo $BACKEND_URL
-            BACKEND_IP="${BACKEND_URL:18:-5}"
+            export BACKEND_IP="${BACKEND_URL:18:-5}"
             echo $BACKEND_IP
       - run:
           name: Backend smoke test.
