@@ -9,10 +9,10 @@
     state: directory
 - name: "Untar the source"
   command: tar -xvf /home/ubuntu/artifact.tar.gz -C /home/ubuntu/backend
-- name: "Go to the right directory"
-  command: chdir=/home/ubuntu/backend ls
 - name: "Install npm"
   command: npm install
+  args:
+    chdir: /home/ubuntu/backend
 - name: "Copy the .env file"
   copy:
     src: files/example.env
@@ -21,6 +21,10 @@
   command: pm2 kill 
 - name: "compile code"
   command: npm run build
+  args:
+    chdir: /home/ubuntu/backend
 - name: "Start npm pm2"
   command: pm2 start npm -- start 
+  args:
+    chdir: /home/ubuntu/backend
 
