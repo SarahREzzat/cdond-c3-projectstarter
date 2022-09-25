@@ -15,10 +15,12 @@
   command: npm install
 - name: "Copy the .env file"
   copy:
-    src: files/.env
-    dest: /home/ubuntu/backend/
+    src: files/example.env
+    dest: /home/ubuntu/backend/.env
 - name: "kill any pm2"
   command: pm2 kill 
+- name: "compile code"
+  command: npm run build
 - name: "Start npm pm2"
-  command: npm start &
+  command: pm2 start npm -- start 
 
