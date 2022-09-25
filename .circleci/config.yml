@@ -27,11 +27,13 @@ commands:
           name: Revert migrations
           when: << parameters.when_to_run >>
           command: |
-            if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+            SUCCESS=$(curl --insecure  https://kvdb.io/9GE4jRtKznmVKRfvdBABBe/migration_)
+            # Logic for reverting the database state
+            if (( $SUCCESS == 1 ));
             then
-              cd ~/project/backend
-              npm install
-              npm run migrations:revert
+                cd ~/project/backend
+                npm install
+                npm run migration:revert
             fi
             
 jobs:
