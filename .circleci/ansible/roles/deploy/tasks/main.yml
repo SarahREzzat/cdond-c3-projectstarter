@@ -27,4 +27,5 @@
   command: pm2 start npm -- start 
   args:
     chdir: /home/ubuntu/backend
+    
 
