@@ -388,7 +388,7 @@ jobs:
       - revert-migrations:
           when_to_run: on_fail
       - destroy-environment:
-          when_to_run: on_failc                      cc                                                                                
+          when_to_run: on_fail                                                                              
 #       # Here's where you will add some code to rollback on failure  
 
   cloudfront-update:
